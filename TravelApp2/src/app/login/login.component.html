@@ -1,0 +1,64 @@
+
+<div class="container">
+    <div>
+        <h3>Login</h3>
+        <hr>
+        <!--reactive form-->
+        <form [formGroup]="loginForm" (ngSubmit)="loginCredentials()">
+
+            <!--Username-->
+            <div class="col-md-4">
+                <input class="form-control" type="text" placeholder="Enter Username" formControlName="Username" autocomplete="on"
+                    required />
+            </div>
+            <div *ngIf="isSubmitted && formControls.Username.errors">
+                <div *ngIf="formControls.Username.errors.required" style="color:red;text-align:left;">
+                   Username is required
+                </div>
+            </div>
+
+            <br>
+            <!--Password-->
+            <div  class="col-md-4">
+                <input class="form-control" type="password" placeholder="Enter Password " formControlName="Password" autocomplete="on"
+                    required />
+            </div>
+            <div *ngIf="isSubmitted && formControls.Password.errors">
+                <div *ngIf="formControls.Password.errors.required" style="color:red;text-align:left;">
+                    Password is required
+                </div>
+            </div>
+            <br>
+
+                <button class="btn btn-success" (click) = "loginCredentials()">
+                    <i class="fa fa-sign-in"></i>
+                    Login
+                </button> 
+                    <div *ngIf="error" style="color:red;text-align:left"></div>
+
+                    &nbsp;
+                    
+
+                    
+
+                    <!--
+                (click) = "loginVerifyTest()"
+                <button class="btn btn-info" (click) = "loginVerifyTest()">
+                        <i class="fa fa-sign-in"></i>
+                        Test
+                    </button>
+                    <div *ngIf="error" style="color:red;text-align:left">{{error}}</div> 
+                -->
+                    
+        </form>
+
+        <br>
+        <a href="signup"> 
+            <button class="btn btn-success">
+                <i class="fa fa-sign-in"></i>
+                Signup
+            </button> 
+                <div *ngIf="error" style="color:red;text-align:left"></div>
+            </a>
+    </div>
+</div>

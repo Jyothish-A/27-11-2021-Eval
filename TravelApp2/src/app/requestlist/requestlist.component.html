@@ -1,0 +1,72 @@
+<div class="container">
+    
+    <div class="header">
+        
+        <h5>Request Info</h5>
+
+        <div class="form-group">
+            <input class="form-control" type="text" 
+            placeholder="Search"
+            [(ngModel)] = "filter"/>
+        </div>
+        
+        <!-- <a [routerLink]="['employee']" class="btn btn-secondary" > Add Request </a> -->
+        
+
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Travel Reason</th>
+                <th>Source</th>
+                <th>Destination</th>
+                <th>Mode of Travel</th>
+                <th>From Date</th>
+                <th>To Date</th>
+                <th>Days</th>
+                <th>Priority</th>
+                <th>Project</th>
+                <th>Employee</th>
+                <th>Status</th>                
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let r of reqService.requests | filter : filter | 
+            paginate: {itemsPerPage: 5,currentPage: page}">
+
+                 <!--
+                <ng-container *ngIf = "emp.IsActive">
+                -->
+                <!-- <*ngIf = "emp.IsActive"> -->
+                <td (click) = "populateForm(r)">  {{r.Requestid}}  </td>
+                <td (click) = "populateForm(r)">  {{r.TravelCause}}  </td>
+                <td (click) = "populateForm(r)">  {{r.Source}}  </td>
+                <td (click) = "populateForm(r)">  {{r.Destination}}  </td>
+                <td (click) = "populateForm(r)">  {{r.Mode}}  </td>
+                <td (click) = "populateForm(r)">  {{r.FromDate | date : 'dd-MMM-yyyy'}}  </td>
+                <td (click) = "populateForm(r)">  {{r.ToDate | date : 'dd-MMM-yyyy'}}  </td>
+                <td (click) = "populateForm(r)">  {{r.NoDays}}  </td>
+                <td (click) = "populateForm(r)">  {{r.Priority}}  </td>
+                <td (click) = "populateForm(r)">  {{r.ProjectId}}  </td>
+                <td (click) = "populateForm(r)">  {{r.EmpId}}  </td>
+                <td (click) = "populateForm(r)">  {{r.Status}}  </td>
+                
+                <td > 
+                    <button class="btn btn-sm btn-info"  (click) = "populateForm(r)"> Edit </button>
+                </td> 
+              <!--
+            </ng-container> 
+            -->                           
+            </tr>
+        </tbody>
+
+    </table>
+
+    <div class="footer" style="text-align: center;">
+        <pagination-controls (pageChange)="page=($event)"></pagination-controls>
+    </div>
+
+</div>

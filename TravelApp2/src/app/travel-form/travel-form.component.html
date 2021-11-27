@@ -1,0 +1,269 @@
+<nav class="nav">
+    <li class="nav-item">
+        <a class="btn btn-danger nav-link" href="#" (click) = "logout()"> Logout </a>
+    </li>
+</nav>
+
+<br>
+
+<br>
+
+<form name="travelform" #form="ngForm"
+(ngSubmit) = "onSubmit(form)">
+
+    <!--Employee ID-->
+
+    <ng-container *ngIf="currentRole != 'USER'">
+    
+    <div class="form-group">        
+        <input type="number"  
+        name="Requestid" 
+        #Requestid="ngModel" 
+        [(ngModel)]="reqService.formData.Requestid"
+        class="form-control"
+        value=0
+        [ngClass]="{'is invalid':Requestid.touched && Requestid.invalid}"
+        />
+        <div class="validation-error" *ngIf="Requestid.touched && Requestid.invalid">
+            Request ID Incorrect !!
+        </div>
+    </div>
+    <br>
+</ng-container>
+    
+
+
+    <div class="form-group">       
+        <input type="text"  
+        name="TravelCause" 
+        #TravelCause="ngModel" 
+        [(ngModel)]="reqService.formData.TravelCause"
+        class="form-control"
+        placeholder="Reason for Travel"
+        [ngClass]="{'is invalid':TravelCause.touched && TravelCause.invalid}"
+        />
+        <div class="validation-error" *ngIf="TravelCause.touched && TravelCause.invalid"></div>
+    </div>
+
+    <br>
+
+
+
+    <div class="form-group">       
+        <input type="text"  
+        name="Source" 
+        #Source="ngModel" 
+        [(ngModel)]="reqService.formData.Source"
+        class="form-control"
+        placeholder="Departure Location"
+        required
+        [ngClass]="{'is invalid':Source.touched && Source.invalid}"
+        />
+        <div class="validation-error" *ngIf="Source.touched && Source.invalid"></div>
+    </div>
+
+    <br>
+
+
+    
+    <div class="form-group">       
+        <input type="text"  
+        name="Destination" 
+        #Destination="ngModel" 
+        [(ngModel)]="reqService.formData.Destination"
+        class="form-control"
+        placeholder="Arrival Location"
+        required
+        [ngClass]="{'is invalid':Destination.touched && Destination.invalid}"
+        />
+        <div class="validation-error" *ngIf="Destination.touched && Destination.invalid"></div>
+    </div>
+
+<br>
+    <div class="form-group">       
+        <input type="text"  
+        name="Mode" 
+        #Mode="ngModel" 
+        [(ngModel)]="reqService.formData.Mode"
+        class="form-control"
+        placeholder="Mode of Travel"
+        required
+        [ngClass]="{'is invalid':Mode.touched && Mode.invalid}"
+        />
+        <div class="validation-error" *ngIf="Mode.touched && Mode.invalid"></div>
+    </div>
+
+    <br>
+
+    <div class="form-group"> 
+        <div class="row text-left">
+            <div class="col">
+        <label>From: </label>
+        </div>
+        <div class="col" style="text-align: left;">     
+        <input type="date"  
+        name="FromDate" 
+        #FromDate="ngModel" 
+        [(ngModel)]="reqService.formData.FromDate"
+        class="form-control"
+        placeholder="Departure Date"
+        required
+        [ngClass]="{'is invalid':FromDate.touched && FromDate.invalid}"/>
+        <div class="validation-error" *ngIf="FromDate.touched && FromDate.invalid"></div>
+    </div>
+</div>
+    </div>
+
+<br>
+    <div class="form-group">
+        <div class="row text-left">
+            <div class="col">
+        <label>To: </label>
+        </div>
+        <div class="col" style="text-align: left;">        
+        <input type="date"  
+        name="ToDate" 
+        #ToDate="ngModel" 
+        [(ngModel)]="reqService.formData.ToDate"
+        class="form-control"
+        placeholder="Arrival Date"
+        required
+        [ngClass]="{'is invalid':ToDate.touched && ToDate.invalid}"
+        />
+        <div class="validation-error" *ngIf="ToDate.touched && ToDate.invalid"></div>
+    </div>
+    </div>
+    </div>
+    
+    <!--
+    <br>
+    <div class="form-group"> 
+        <div class="row text-left">
+            <div class="col">
+        <label>Number of Days:  </label>
+        </div>
+        <div class="col" style="text-align: left;">         
+        <input type="number"  
+        name="NoDays" 
+        #NoDays="ngModel" 
+        [(ngModel)]="reqService.formData.NoDays"
+        class="form-control"
+        placeholder="Request ID"
+        [ngClass]="{'is invalid':NoDays.touched && NoDays.invalid}"
+        />       
+    </div>   
+    </div>
+    </div>
+    -->
+
+
+    <br>
+
+    <div class="form-group">
+        <div class="row text-left">
+            <div class="col">
+        <label>Priority:  </label>
+        </div>
+        <div class="col" style="text-align: left;"> 
+        <select 
+        name="Priority" 
+        id="Priority" 
+        class="form-control"
+        #Priority = "ngModel" 
+        required
+        [(ngModel)]="reqService.formData.Priority">
+        <option value="0" disabled> Choose Priority </option>
+        <option value="CRITICAL"> Critical </option> 
+        <option value="NORMAL"> Normal </option>  
+        </select>
+        <div class="validation-error" *ngIf="Priority.touched && Priority.invalid">
+            <div *ngIf="Priority.errors.required"> Priority is required </div>
+        </div>
+    </div>
+        </div>
+    </div>
+
+
+<br>
+
+    <div class="form-group"> 
+        <div class="row text-left">
+            <div class="col">
+        <label>Project:  </label>
+        </div>
+        <div class="col" style="text-align: left;"> 
+        
+        <select 
+        name="ProjectId" 
+        id="ProjectId" 
+        class="form-control"
+        #ProjectId = "ngModel" 
+        required
+        [(ngModel)]="reqService.formData.ProjectId">
+        <option value=0 disabled> Choose Project </option>
+        <option *ngFor= "let d of reqService.projects"
+        value="{{d.ProjectId}}"> {{d.ProjectName}} </option>  
+        </select>
+        <div class="validation-error" *ngIf="ProjectId.touched && ProjectId.invalid">
+            <div *ngIf="ProjectId.errors.required"> ProjectId is required </div>
+        </div>
+    </div>
+        </div>
+    </div>
+    
+
+
+<br>
+    
+    <div class="form-group">
+        <div class="row text-left">
+            <div class="col">
+        <label>Employee:  </label>
+        </div>
+        <div class="col" style="text-align: left;">         
+        <select 
+        name="EmpId" 
+        id="EmpId" 
+        class="form-control"
+        #EmpId = "ngModel" 
+        required
+        [(ngModel)]="reqService.formData.EmpId">
+        <option value=0 disabled> Choose Employee </option>
+        <option *ngFor= "let d of reqService.employee"
+        value="{{d.EmpId}}"> {{d.Fname}}&nbsp;{{d.Lname}} </option>  
+        </select>
+        <div class="validation-error" *ngIf="EmpId.touched && EmpId.invalid">
+            <div *ngIf="EmpId.errors.required"> EmpId is required </div>
+        </div>
+    </div>
+        </div>
+    </div>
+
+    <ng-container *ngIf="currentRole != 'USER'">
+<br>
+    <div class="form-group">       
+        <input type="text"  
+        name="Status" 
+        #Status="ngModel" 
+        [(ngModel)]="reqService.formData.Status"
+        class="form-control"
+        placeholder="Approval Status"
+        required
+        [ngClass]="{'is invalid':Status.touched && Status.invalid}"
+        />
+        <div class="validation-error" *ngIf="Status.touched && Status.invalid"></div>
+    </div>
+</ng-container>
+
+    <br>
+
+
+    <div class="form-group">
+        <button type="submit" [disabled]="!(form.valid && form.dirty)"
+         class="btn btn-lg btn-primary form-control"> 
+         Submit
+        </button>
+    </div>
+
+    
+</form>

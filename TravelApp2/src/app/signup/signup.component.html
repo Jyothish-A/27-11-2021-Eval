@@ -1,0 +1,14 @@
+<form name="signUpform" #form="ngForm"
+(ngSubmit) = "onSubmit(form)">
+
+    <!--Employee ID-->
+
+    <div class="form-group">
+        <button type="submit" [disabled]="!(form.valid && form.dirty)"
+         class="btn btn-lg btn-primary form-control"> 
+         Submit
+        </button>
+    </div>
+
+    
+</form>
